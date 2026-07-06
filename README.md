@@ -1,84 +1,121 @@
-# แกงเขียวหวานไก่ (Thai Green Curry Chicken)
+# Sorting Match
 
-![แกงเขียวหวานไก่](image.png)
+Sorting Match is a full-stack SvelteKit application for learning and competing with classic sorting algorithms. It includes algorithm education pages, a practice sandbox, real-time multiplayer rooms, guest play, account-based profiles, and ranked match history.
 
-<p align="center">
-  <b>เมนูอาหารไทยยอดนิยม รสเข้มข้น หอมกะทิ เผ็ดนิด ๆ กินกับข้าวสวยร้อน ๆ คือที่สุด</b>
-</p>
+## Core Flows
 
-<p align="center">
-  <img src="https://img.shields.io/badge/Level-Easy-green" />
-  <img src="https://img.shields.io/badge/Time-30%20mins-blue" />
-  <img src="https://img.shields.io/badge/Calories-~420kcal-orange" />
-</p>
+- **Education**: visual walkthrough pages for Bubble, Selection, Insertion, Quick, Merge, and Heap Sort.
+- **Practice**: a standalone practice mode for experimenting with sortable data.
+- **Competition**: Socket.IO-powered lobby, private/public rooms, readiness checks, live rounds, scoring, and leaderboard updates.
+- **Accounts**: Better Auth email/password login, social providers, password reset email, guest players, and profile pages.
 
----
+## Tech Stack
 
-## 🧾 ส่วนประกอบ
+- Svelte 5 and SvelteKit
+- TypeScript
+- Tailwind CSS 4
+- Socket.IO
+- Better Auth
+- Drizzle ORM with PostgreSQL
+- Cloudflare Turnstile for sign-in/sign-up protection
+- ESLint and Prettier
 
-| 🥦 วัตถุดิบ               | 📏 ปริมาณ |
-| :------------------------ | :-------: |
-| หัวกะทิ                   |   90 มล.  |
-| พริกแกงเขียวหวาน          |  45 กรัม  |
-| อกไก่                     |  150 กรัม |
-| หางกะทิ (หัวกะทิละลายน้ำ) |  150 มล.  |
-| น้ำปลา                    |   5 กรัม  |
-| รสดี รสไก่                |   1 กรัม  |
-| ใบมะกรูด                  |    6 ใบ   |
-| มะเขือเปราะ               |  300 กรัม |
-| มะเขือพวง                 |  30 กรัม  |
-| พริกชี้ฟ้าแดง             |  15 กรัม  |
-| ใบโหระพา                  |  10 กรัม  |
+## Requirements
 
----
+- Node.js compatible with the versions used by SvelteKit/Vite in `package.json`
+- npm
+- PostgreSQL database
+- Email credentials for password reset mail
+- OAuth provider credentials if social login is enabled
+- Cloudflare Turnstile site key and secret
 
-## 👨‍🍳 วิธีทำ
+## Environment Variables
 
-1. ตั้งกระทะ ใส่ **หัวกะทิ** เคี่ยวจนเริ่มเดือด
-2. ใส่ **พริกแกงเขียวหวาน** ลงไป ผัดจนแตกมันและหอม
-3. ใส่ **อกไก่** ผัดให้เข้ากับพริกแกงจนเนื้อเริ่มสุก
-4. เติม **หางกะทิ** ลงไป รอจนเดือดอีกครั้ง
-5. ปรุงรสด้วย **น้ำปลา + น้ำตาลปี๊บ + รสดี** คนให้ละลาย
-6. ใส่ **ใบมะกรูด + มะเขือเปราะ + มะเขือพวง** ต้มจนผักสุก
-7. ปิดไฟ ใส่ **พริกชี้ฟ้าแดง + ใบโหระพา** คนให้เข้ากัน
+Create a local `.env` file before running the app:
 
----
+```env
+DATABASE_URL=postgres://user:password@localhost:5432/sorting_match
+ORIGIN=http://localhost:5173
+PUBLIC_ORIGIN=http://localhost:5173
+BETTER_AUTH_SECRET=change-me
 
-## 📊 ตารางโภชนาการ (โดยประมาณ / ต่อ 1 ที่)
+EMAIL_USER=
+EMAIL_PASS=
 
-| 🧪 สารอาหาร  | 📏 ปริมาณ |
-| :----------- | :-------: |
-| พลังงาน      |  420 kcal |
-| โปรตีน       |    28 g   |
-| ไขมัน        |    30 g   |
-| คาร์โบไฮเดรต |    12 g   |
-| น้ำตาล       |    6 g    |
-| โซเดียม      |   950 mg  |
+GITHUB_CLIENT_ID=
+GITHUB_CLIENT_SECRET=
+DISCORD_CLIENT_ID=
+DISCORD_CLIENT_SECRET=
+GOOGLE_CLIENT_ID=
+GOOGLE_CLIENT_SECRET=
+ROBLOX_CLIENT_ID=
+ROBLOX_CLIENT_SECRET=
 
-> ⚠️ ค่าทางโภชนาการเป็นค่าประมาณ อาจเปลี่ยนแปลงตามวัตถุดิบที่ใช้
+PUBLIC_APP_NAME=Sorting Match
+PUBLIC_SITE_KEY=
+SECRET_KEY=
+```
 
----
+`SECRET_KEY` is the Turnstile secret used by the server hook. `PUBLIC_SITE_KEY` is the Turnstile site key used by the sign-in and sign-up pages.
 
-## 🔥 Tips
+## Getting Started
 
-* ผัดพริกแกงกับหัวกะทิให้ “แตกมัน” จะได้กลิ่นหอมและรสเข้มข้น
-* ถ้าชอบมันน้อย ลดหัวกะทิ เพิ่มหางกะทิแทนได้
-* ใส่ใบโหระพาตอนสุดท้าย จะหอมสดใหม่ที่สุด
+Install dependencies:
 
----
+```bash
+npm install
+```
 
-## 🍽️ การเสิร์ฟ
+Push the current Drizzle schema to the configured database:
 
-เสิร์ฟร้อน ๆ พร้อม **ข้าวสวย** หรือ **ขนมจีน** ก็เข้ากันสุด ๆ
+```bash
+npm run db:push
+```
 
----
+Start the development server:
 
-## 📦 Info
+```bash
+npm run dev
+```
 
-| รายการ            | ค่า      |
-| ----------------- | -------- |
-| ⏱️ เวลา           | ~30 นาที |
-| 🍽️ จำนวนเสิร์ฟ   | 1–2 ที่  |
-| 🌶️ ระดับความเผ็ด | ปานกลาง  |
+The default local app URL is `http://localhost:5173`.
 
+## Scripts
+
+- `npm run dev`: start the Vite development server.
+- `npm run build`: create a production build.
+- `npm run preview`: preview the production build.
+- `npm run check`: sync SvelteKit types and run `svelte-check`.
+- `npm run lint`: run Prettier checks and ESLint.
+- `npm run format`: format the codebase with Prettier.
+- `npm run db:push`: push the Drizzle schema to the database.
+- `npm run db:generate`: generate Drizzle migration files.
+- `npm run db:migrate`: run Drizzle migrations.
+- `npm run db:studio`: open Drizzle Studio.
+- `npm run auth:schema`: regenerate Better Auth schema output.
+
+## Project Structure
+
+```text
+src/routes/                         SvelteKit routes and pages
+src/routes/api/                     HTTP API endpoints
+src/routes/competition/[id]/        Competition room lobby page
+src/routes/competition/[id]/play/   Live competition play page
+src/routes/education/               Algorithm learning pages
+src/routes/lobby/                   Public/private room lobby
+src/lib/components/                 Shared UI and layout components
+src/lib/server/                     Server-side auth, database, sockets, and API helpers
+src/lib/server/db/                  Drizzle schema and database client
+src/lib/server/socket/              Socket.IO handlers, services, middleware, and game state
+src/lib/utils/                      Sorting array and solution-step utilities
+static/                             Static assets
+```
+
+## Development Notes
+
+- This project uses Svelte 5 runes mode by default.
+- Server-only code should stay under `src/lib/server` or in `.server.ts` modules.
+- Database schema lives in `src/lib/server/db/schema.ts`.
+- Room and game events are handled through Socket.IO under `src/lib/server/socket`.
+- Run `npm run check` and `npm run lint` before submitting changes once dependencies are installed.
 
